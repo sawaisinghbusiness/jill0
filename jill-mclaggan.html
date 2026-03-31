@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jill McLaggan – Chronic Pain Specialist | Edinburgh</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue: #5A6FAF;
+    --dark-blue: #3E4F86;
+    --bg: #F5F7FB;
+    --white: #FFFFFF;
+    --text: #2A2A2A;
+    --glass: rgba(255,255,255,0.62);
+    --glass-border: rgba(255,255,255,0.45);
+    --shadow: 0 8px 40px rgba(90,111,175,0.13);
+    --shadow-md: 0 16px 60px rgba(62,79,134,0.16);
+    --radius: 20px;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Poppins', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 99px; }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(245,247,251,0.82);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(90,111,175,0.09);
+    transition: box-shadow 0.3s;
+  }
+  header.scrolled { box-shadow: 0 4px 30px rgba(62,79,134,0.10); }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--dark-blue);
+  }
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 1.8; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .logo-name { font-family: var(--font-serif); font-weight: 500; font-size: 1.1rem; letter-spacing: 0.02em; }
+  .logo-tag { font-size: 0.63rem; font-weight: 400; color: var(--blue); letter-spacing: 0.08em; text-transform: uppercase; }
+  .hamburger {
+    width: 44px; height: 44px; border: none; background: transparent;
+    cursor: pointer; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 5px;
+    border-radius: 10px; transition: background 0.2s;
+  }
+  .hamburger:hover { background: rgba(90,111,175,0.08); }
+  .hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--dark-blue); border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ── SIDEBAR ── */
+  .overlay {
+    position: fixed; inset: 0; z-index: 950;
+    background: rgba(42,42,42,0.35);
+    backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .overlay.open { opacity: 1; pointer-events: all; }
+  .sidebar {
+    position: fixed; top: 0; right: -420px; height: 100%; z-index: 960;
+    width: min(380px, 90vw);
+    background: rgba(245,247,251,0.97);
+    backdrop-filter: blur(30px);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: -20px 0 80px rgba(62,79,134,0.18);
+    transition: right 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+    display: flex; flex-direction: column; padding: 0;
+    overflow-y: auto;
+  }
+  .sidebar.open { right: 0; }
+  .sidebar-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid rgba(90,111,175,0.10);
+  }
+  .sidebar-logo { font-family: var(--font-serif); font-size: 1.1rem; color: var(--dark-blue); font-weight: 500; }
+  .close-btn {
+    width: 36px; height: 36px; border: none;
+    background: rgba(90,111,175,0.10); border-radius: 8px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--dark-blue); font-size: 1.2rem; transition: background 0.2s;
+  }
+  .close-btn:hover { background: rgba(90,111,175,0.2); }
+  .sidebar-nav { padding: 28px 32px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .sidebar-nav a {
+    font-size: 0.93rem; font-weight: 400; color: var(--text);
+    text-decoration: none; padding: 13px 16px; border-radius: 10px;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, color 0.2s;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sidebar-nav a:hover { background: rgba(90,111,175,0.08); color: var(--blue); }
+  .sidebar-nav a.book-btn {
+    margin-top: 16px;
+    background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+    color: white; font-weight: 500; text-align: center;
+    justify-content: center; letter-spacing: 0.04em;
+    box-shadow: 0 6px 24px rgba(90,111,175,0.30);
+  }
+  .sidebar-nav a.book-btn:hover { background: linear-gradient(135deg, var(--dark-blue), var(--blue)); transform: translateY(-1px); }
+  .sidebar-footer { padding: 24px 32px; border-top: 1px solid rgba(90,111,175,0.10); }
+  .sidebar-footer p { font-size: 0.75rem; color: #888; }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; width: 100%; height: 100vh;
+    min-height: 700px; display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1800&q=80&auto=format') center/cover no-repeat;
+    transform: scale(1.05);
+    animation: heroZoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom { from { transform: scale(1.05); } to { transform: scale(1.12); } }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg,
+      rgba(245,247,251,0.78) 0%,
+      rgba(90,111,175,0.45) 50%,
+      rgba(62,79,134,0.62) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 10;
+    text-align: center; max-width: 780px; padding: 0 24px;
+  }
+  .hero-glass {
+    background: rgba(255,255,255,0.58);
+    backdrop-filter: blur(28px);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 28px;
+    padding: 60px 56px 52px;
+    box-shadow: 0 24px 80px rgba(62,79,134,0.22), inset 0 1px 0 rgba(255,255,255,0.8);
+    animation: heroFade 1s ease both;
+  }
+  @keyframes heroFade { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(90,111,175,0.12); border: 1px solid rgba(90,111,175,0.25);
+    border-radius: 99px; padding: 6px 16px; margin-bottom: 24px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--dark-blue);
+  }
+  .hero-badge span.dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue); display: inline-block;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.6;transform:scale(0.8);} }
+  .hero-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 400; line-height: 1.15;
+    color: var(--dark-blue); margin-bottom: 10px; letter-spacing: -0.01em;
+  }
+  .hero-h1 em { font-style: italic; color: var(--blue); }
+  .hero-sub {
+    font-size: 0.88rem; color: #556; letter-spacing: 0.05em;
+    margin-bottom: 28px; font-weight: 300;
+  }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 36px;
+  }
+  .pill {
+    background: rgba(90,111,175,0.09); border: 1px solid rgba(90,111,175,0.2);
+    border-radius: 99px; padding: 5px 14px;
+    font-size: 0.73rem; color: var(--dark-blue); font-weight: 400; letter-spacing: 0.04em;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--dark-blue) 100%);
+    color: white; font-family: var(--font-sans); font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    border: none; border-radius: 12px; padding: 16px 36px;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 8px 30px rgba(90,111,175,0.38);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(90,111,175,0.45); }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent;
+    color: var(--dark-blue); font-family: var(--font-sans); font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1.5px solid rgba(90,111,175,0.4); border-radius: 12px; padding: 15px 32px;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  }
+  .btn-outline:hover { background: rgba(90,111,175,0.07); border-color: var(--blue); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10;
+  }
+  .hero-scroll span { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+    animation: scrollDrop 2s ease infinite;
+  }
+  @keyframes scrollDrop { 0%{opacity:0;transform:scaleY(0);transform-origin:top;} 40%{opacity:1;} 100%{opacity:0;transform:scaleY(1);transform-origin:top;} }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 100px 48px; }
+  .section-label {
+    display: inline-block; font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400; line-height: 1.2; color: var(--dark-blue);
+    margin-bottom: 18px;
+  }
+  .section-title em { font-style: italic; }
+  .section-lead { font-size: 0.92rem; color: #667; max-width: 540px; font-weight: 300; line-height: 1.8; }
+  .container { max-width: 1180px; margin: 0 auto; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 64px; align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .about-img-wrap { position: relative; display: flex; justify-content: center; }
+  .about-img {
+    width: 320px; height: 400px;
+    border-radius: 50% 50% 40% 40% / 50% 50% 40% 40%;
+    object-fit: cover; object-position: top;
+    box-shadow: var(--shadow-md);
+    background: url('https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80') center/cover;
+  }
+  .about-badge-float {
+    position: absolute; bottom: 20px; left: -10px;
+    background: var(--glass); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: 14px;
+    padding: 14px 20px; box-shadow: var(--shadow);
+  }
+  .about-badge-float .num { font-family: var(--font-serif); font-size: 2rem; color: var(--dark-blue); font-weight: 500; }
+  .about-badge-float .lbl { font-size: 0.7rem; color: #778; letter-spacing: 0.05em; }
+  .about-card {
+    background: var(--glass); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: var(--radius);
+    padding: 48px 44px; box-shadow: var(--shadow);
+  }
+  .about-quote {
+    font-family: var(--font-serif); font-size: 1.45rem; font-style: italic;
+    color: var(--dark-blue); line-height: 1.45; margin-bottom: 24px;
+    padding-left: 20px; border-left: 3px solid var(--blue);
+  }
+  .about-body { font-size: 0.88rem; color: #556; line-height: 1.85; margin-bottom: 28px; }
+  .about-credentials { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cred {
+    background: rgba(90,111,175,0.08); border: 1px solid rgba(90,111,175,0.18);
+    border-radius: 99px; padding: 5px 14px;
+    font-size: 0.7rem; color: var(--dark-blue); font-weight: 500;
+  }
+
+  /* ── SERVICES ── */
+  #treatments { background: #ECEEF6; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px; max-width: 1180px; margin: 48px auto 0;
+  }
+  .service-card {
+    position: relative; border-radius: 18px; overflow: hidden;
+    height: 300px; cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s;
+    box-shadow: 0 6px 30px rgba(62,79,134,0.12);
+  }
+  .service-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 60px rgba(62,79,134,0.22); }
+  .service-card:hover .service-bg { transform: scale(1.08); }
+  .service-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .service-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(30,40,80,0.88) 0%, rgba(62,79,134,0.35) 50%, transparent 100%);
+  }
+  .service-glass {
+    position: absolute; inset: 0;
+    background: rgba(62,79,134,0.08);
+    transition: background 0.3s;
+  }
+  .service-card:hover .service-glass { background: rgba(62,79,134,0.15); }
+  .service-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px 22px; color: white;
+  }
+  .service-icon {
+    width: 40px; height: 40px; margin-bottom: 10px;
+    background: rgba(255,255,255,0.15); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .service-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 1.5; }
+  .service-title { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 500; margin-bottom: 4px; letter-spacing: 0.01em; }
+  .service-hint { font-size: 0.7rem; opacity: 0.75; letter-spacing: 0.05em; }
+
+  /* ── IN-CLINIC ── */
+  #in-clinic { background: var(--white); }
+  .inclinic-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .inclinic-img {
+    border-radius: 20px; overflow: hidden;
+    height: 480px;
+    box-shadow: var(--shadow-md);
+    background: url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80') center/cover;
+  }
+  .inclinic-card {
+    background: var(--glass); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: var(--radius);
+    padding: 48px 44px; box-shadow: var(--shadow);
+  }
+  .treatment-list { list-style: none; margin: 28px 0 36px; display: flex; flex-direction: column; gap: 14px; }
+  .treatment-list li {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 0.9rem; color: var(--text); font-weight: 300;
+  }
+  .treatment-list li::before {
+    content: ''; width: 28px; height: 28px; flex-shrink: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .treat-dot {
+    width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px;
+    background: linear-gradient(135deg, rgba(90,111,175,0.15), rgba(62,79,134,0.15));
+    border: 1px solid rgba(90,111,175,0.25);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .treat-dot svg { width: 14px; height: 14px; stroke: var(--blue); fill: none; stroke-width: 2; }
+
+  /* ── ONLINE CONSULT ── */
+  #online {
+    position: relative; min-height: 500px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 48px;
+  }
+  .online-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1600&q=80') center/cover;
+  }
+  .online-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(62,79,134,0.82), rgba(90,111,175,0.60));
+  }
+  .online-content {
+    position: relative; z-index: 2;
+    text-align: center; max-width: 620px;
+  }
+  .online-glass {
+    background: rgba(255,255,255,0.12); backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 24px;
+    padding: 60px 52px; box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+  }
+  .online-glass .section-label { color: rgba(255,255,255,0.75); }
+  .online-glass .section-title { color: white; }
+  .online-glass .section-lead { color: rgba(255,255,255,0.7); max-width: 100%; margin-bottom: 36px; }
+  .btn-white {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: white; color: var(--dark-blue);
+    font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: none; border-radius: 12px; padding: 16px 36px;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.25); }
+
+  /* ── REVIEWS ── */
+  #reviews { background: var(--bg); overflow: hidden; }
+  .reviews-track-wrap { overflow: hidden; position: relative; margin-top: 48px; }
+  .reviews-track {
+    display: flex; gap: 24px; width: max-content;
+    animation: reviewScroll 32s linear infinite;
+  }
+  .reviews-track:hover { animation-play-state: paused; }
+  @keyframes reviewScroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .review-card {
+    width: 360px; flex-shrink: 0;
+    background: var(--glass); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: 18px;
+    padding: 32px 30px; box-shadow: var(--shadow);
+  }
+  .stars { display: flex; gap: 3px; margin-bottom: 18px; }
+  .star { width: 14px; height: 14px; fill: #B8A878; }
+  .review-text { font-family: var(--font-serif); font-style: italic; font-size: 1.05rem; color: var(--dark-blue); line-height: 1.6; margin-bottom: 20px; }
+  .review-author { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; color: #556; text-transform: uppercase; }
+  .review-loc { font-size: 0.7rem; color: #99a; margin-top: 2px; }
+
+  /* ── CTA ── */
+  #cta {
+    padding: 100px 48px; text-align: center;
+    background: linear-gradient(135deg, var(--blue) 0%, #8EA0D6 100%);
+    position: relative; overflow: hidden;
+  }
+  #cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3Ccircle cx='30' cy='30' r='15'/%3E%3C/g%3E%3C/svg%3E") center/120px;
+  }
+  #cta .section-label { color: rgba(255,255,255,0.7); }
+  #cta .section-title { color: white; max-width: 600px; margin: 0 auto 14px; }
+  #cta .section-lead { color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 36px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 60px; max-width: 1000px; margin: 0 auto;
+  }
+  .contact-card {
+    background: var(--glass); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: var(--radius);
+    padding: 48px 44px; box-shadow: var(--shadow);
+  }
+  .contact-items { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+  .contact-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: rgba(90,111,175,0.10); border-radius: 10px;
+    border: 1px solid rgba(90,111,175,0.2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+  .contact-label { font-size: 0.7rem; color: #99a; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+  .contact-val { font-size: 0.9rem; color: var(--text); font-weight: 400; }
+  .social-row { display: flex; gap: 12px; margin-top: 30px; }
+  .social-btn {
+    width: 42px; height: 42px;
+    background: rgba(90,111,175,0.10); border: 1px solid rgba(90,111,175,0.2);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    color: var(--blue); text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .social-btn:hover { background: var(--blue); color: white; transform: translateY(-2px); }
+  .social-btn svg { width: 18px; height: 18px; }
+  .book-card {
+    background: linear-gradient(145deg, var(--dark-blue), var(--blue));
+    border-radius: var(--radius); padding: 48px 44px;
+    box-shadow: 0 20px 60px rgba(62,79,134,0.30); color: white;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .book-card .section-label { color: rgba(255,255,255,0.6); }
+  .book-card h3 { font-family: var(--font-serif); font-size: 2rem; font-weight: 400; margin: 12px 0 18px; line-height: 1.25; }
+  .book-card p { font-size: 0.85rem; opacity: 0.75; line-height: 1.7; margin-bottom: 32px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1c2545; color: rgba(255,255,255,0.45);
+    text-align: center; padding: 28px 48px;
+    font-size: 0.75rem; letter-spacing: 0.04em;
+  }
+  footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media(max-width: 900px) {
+    header { padding: 0 24px; }
+    section { padding: 72px 24px; }
+    .about-grid, .inclinic-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-img-wrap { order: -1; }
+    .about-img { width: 100%; height: 280px; border-radius: 20px; }
+    .hero-glass { padding: 40px 28px 36px; }
+  }
+  @media(max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero-glass { padding: 32px 20px 28px; }
+    .online-glass { padding: 40px 28px; }
+    #cta { padding: 72px 24px; }
+    .contact-card, .book-card, .inclinic-card, .about-card { padding: 32px 26px; }
+  }
+
+  /* ── Medical Mentoring Section ── */
+  #mentoring { background: var(--white); }
+  .mentoring-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .mentoring-content { }
+  .mentoring-card {
+    background: linear-gradient(145deg, rgba(245,247,251,0.9), rgba(255,255,255,0.7));
+    backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+    border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow);
+  }
+  .mentoring-card h3 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--dark-blue); margin-bottom: 14px; }
+  .mentoring-card p { font-size: 0.87rem; color: #667; line-height: 1.8; margin-bottom: 18px; }
+  .mentoring-img {
+    border-radius: 20px; overflow: hidden; height: 380px;
+    background: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80') center/cover;
+    box-shadow: var(--shadow-md);
+  }
+  @media(max-width:900px){.mentoring-grid{grid-template-columns:1fr;}.mentoring-img{height:240px;}}
+</style>
+</head>
+<body>
+
+<!-- ░░ HEADER ░░ -->
+<header id="hdr">
+  <a class="logo" href="#hero">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 7v5l3 3"/><path d="M8 12h8M12 8v8"/></svg>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">Jill McLaggan</span>
+      <span class="logo-tag">Chronic Pain Specialist</span>
+    </div>
+  </a>
+  <button class="hamburger" id="menuBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ░░ SIDEBAR ░░ -->
+<div class="overlay" id="overlay"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <span class="sidebar-logo">Jill McLaggan</span>
+    <button class="close-btn" id="closeBtn">✕</button>
+  </div>
+  <div class="sidebar-nav">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#treatments">Treatments</a>
+    <a href="#mentoring">Medical Mentoring</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="book-btn" id="bookSidebar">Book Appointment</a>
+  </div>
+  <div class="sidebar-footer">
+    <p>Edinburgh, Scotland &middot; jill@jillmclaggan.com</p>
+  </div>
+</nav>
+
+<!-- ░░ HERO ░░ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-glass">
+      <div class="hero-badge"><span class="dot"></span> Private Chronic Pain Clinic · Edinburgh</div>
+      <h1 class="hero-h1">Reduce Your Pain.<br><em>Restore Your Life.</em></h1>
+      <p class="hero-sub">Specialist-led pain management in a calm, private setting</p>
+      <div class="hero-pills">
+        <span class="pill">Chronic Pain</span>
+        <span class="pill">Craniosacral Therapy</span>
+        <span class="pill">Dry Needling</span>
+        <span class="pill">Medical Mentoring</span>
+      </div>
+      <a href="#contact" class="btn-primary sound-click" id="heroBookBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Book Appointment
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ░░ ABOUT ░░ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap fade-in">
+      <div class="about-img"></div>
+      <div class="about-badge-float">
+        <div class="num">15+</div>
+        <div class="lbl">Years of Experience</div>
+      </div>
+    </div>
+    <div class="about-card fade-in">
+      <span class="section-label">About Jill</span>
+      <blockquote class="about-quote">"My passion is educating the patient. My job satisfaction is relieving their pain."</blockquote>
+      <p class="about-body">Jill McLaggan is a highly experienced chronic pain specialist based in Edinburgh, Scotland. With over 15 years of clinical practice, Jill combines evidence-based physiotherapy with holistic approaches including Craniosacral Therapy and Dry Needling to address the root causes of persistent pain.<br><br>
+      Her philosophy is built on deep patient education and collaborative care — empowering individuals to understand their body and take control of their healing journey. Whether you suffer from back pain, neck pain, or complex chronic conditions, Jill's approach is always calm, thorough, and deeply personal.</p>
+      <div class="about-credentials">
+        <span class="cred">BSc Physiotherapy</span>
+        <span class="cred">Craniosacral Therapy</span>
+        <span class="cred">Dry Needling Certified</span>
+        <span class="cred">Pain Management</span>
+        <span class="cred">Medical Mentoring</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ TREATMENTS ░░ -->
+<section id="treatments">
+  <div class="container fade-in">
+    <span class="section-label">What We Treat</span>
+    <h2 class="section-title">Specialist <em>Treatments</em></h2>
+    <p class="section-lead">Every treatment plan is uniquely tailored. Jill combines multiple evidence-based modalities to address your pain at its source.</p>
+  </div>
+  <div class="services-grid">
+
+    <!-- Shoulder Pain -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M6 12C6 8.69 8.69 6 12 6"/><path d="M18 12c0 3.31-2.69 6-6 6"/><path d="M3 12h3M18 12h3M12 3v3M12 18v3"/></svg>
+        </div>
+        <div class="service-title">Shoulder Pain</div>
+        <div class="service-hint">Rotator cuff · Impingement · Frozen shoulder</div>
+      </div>
+    </div>
+
+    <!-- Back Pain -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M9 5l3-3 3 3M9 19l3 3 3-3"/><ellipse cx="12" cy="12" rx="3" ry="2"/></svg>
+        </div>
+        <div class="service-title">Back Pain</div>
+        <div class="service-hint">Lumbar · Disc issues · Sciatica</div>
+      </div>
+    </div>
+
+    <!-- Neck Pain -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 00-3 3v4a3 3 0 006 0V6a3 3 0 00-3-3z"/><path d="M9 13v3a3 3 0 003 3 3 3 0 003-3v-3"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+        </div>
+        <div class="service-title">Neck Pain</div>
+        <div class="service-hint">Cervical · Whiplash · Tension</div>
+      </div>
+    </div>
+
+    <!-- Head & Jaw Pain -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 00-8 8c0 2.6 1.2 4.9 3 6.4V20h10v-3.6A8 8 0 0012 2z"/><path d="M9 20v2M15 20v2M9 14h6"/></svg>
+        </div>
+        <div class="service-title">Head & Jaw Pain</div>
+        <div class="service-hint">TMJ · Migraines · Headaches</div>
+      </div>
+    </div>
+
+    <!-- Chronic Pain -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="service-title">Chronic Pain</div>
+        <div class="service-hint">Persistent pain · Fibromyalgia · Complex</div>
+      </div>
+    </div>
+
+    <!-- Craniosacral Therapy -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M4.5 12.5A7.5 7.5 0 0112 5a7.5 7.5 0 017.5 7.5"/><path d="M9 12c0-1.66 1.34-3 3-3s3 1.34 3 3"/><path d="M12 19v-4"/><path d="M7 20c1.3-.8 3.3-1.3 5-1.3s3.7.5 5 1.3"/></svg>
+        </div>
+        <div class="service-title">Craniosacral Therapy</div>
+        <div class="service-hint">Gentle · Holistic · Nervous system</div>
+      </div>
+    </div>
+
+    <!-- Dry Needling -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1416161955884-4c6c3f4a0938?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="M9 5l3-3 3 3"/><path d="M10 10h4M10 14h4M10 18h4"/></svg>
+        </div>
+        <div class="service-title">Dry Needling</div>
+        <div class="service-hint">Trigger points · Muscle release</div>
+      </div>
+    </div>
+
+    <!-- Pain Management Education -->
+    <div class="service-card fade-in">
+      <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80')"></div>
+      <div class="service-overlay"></div>
+      <div class="service-glass"></div>
+      <div class="service-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><line x1="8" y1="7" x2="15" y2="7"/><line x1="8" y1="11" x2="15" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg>
+        </div>
+        <div class="service-title">Pain Management Education</div>
+        <div class="service-hint">Empowerment · Self-management</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ░░ IN-CLINIC ░░ -->
+<section id="in-clinic">
+  <div class="inclinic-grid">
+    <div class="inclinic-img fade-in"></div>
+    <div class="inclinic-card fade-in">
+      <span class="section-label">In-Clinic Treatment</span>
+      <h2 class="section-title">Hands-On <em>Care</em></h2>
+      <p class="section-lead">Experience personalised one-to-one treatment in Jill's private Edinburgh clinic. Every session is tailored precisely to your condition.</p>
+      <ul class="treatment-list">
+        <li>
+          <div class="treat-dot"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div>
+          Soft Tissue Work
+        </li>
+        <li>
+          <div class="treat-dot"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div>
+          Craniosacral Therapy
+        </li>
+        <li>
+          <div class="treat-dot"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div>
+          Dry Needling
+        </li>
+        <li>
+          <div class="treat-dot"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div>
+          Pain Management Education
+        </li>
+        <li>
+          <div class="treat-dot"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div>
+          Personalised Rehabilitation Plans
+        </li>
+      </ul>
+      <a href="#contact" class="btn-primary sound-click">Book In-Clinic Appointment</a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ ONLINE CONSULT ░░ -->
+<section id="online">
+  <div class="online-bg"></div>
+  <div class="online-overlay"></div>
+  <div class="online-content fade-in">
+    <div class="online-glass">
+      <span class="section-label">Worldwide Access</span>
+      <h2 class="section-title">Online <em>Consultations</em></h2>
+      <p class="section-lead">Can't make it to Edinburgh? Jill offers expert chronic pain consultations online — available to patients worldwide from the comfort of your home.</p>
+      <a href="#contact" class="btn-white sound-click">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Book Online Consultation
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ MENTORING ░░ -->
+<section id="mentoring">
+  <div class="mentoring-grid">
+    <div class="fade-in">
+      <span class="section-label">For Healthcare Professionals</span>
+      <h2 class="section-title">Medical <em>Mentoring</em></h2>
+      <p class="section-lead">Jill offers specialist mentoring for physiotherapists, doctors, and healthcare professionals seeking to deepen their understanding of chronic pain management and advanced manual therapy techniques.</p>
+      <div style="margin-top:32px; display:flex; flex-direction:column; gap:16px;">
+        <div class="mentoring-card">
+          <h3>1-to-1 Clinical Mentoring</h3>
+          <p>Personalised sessions tailored to your clinical questions and specific patient challenges. Available in-person in Edinburgh or online.</p>
+        </div>
+        <div class="mentoring-card">
+          <h3>Craniosacral Therapy Guidance</h3>
+          <p>Deepen your practical understanding of CST with expert supervision from a seasoned specialist.</p>
+        </div>
+      </div>
+      <div style="margin-top:28px;">
+        <a href="mailto:jill@jillmclaggan.com" class="btn-primary sound-click">Enquire About Mentoring</a>
+      </div>
+    </div>
+    <div class="mentoring-img fade-in"></div>
+  </div>
+</section>
+
+<!-- ░░ REVIEWS ░░ -->
+<section id="reviews">
+  <div class="container fade-in">
+    <span class="section-label">Patient Reviews</span>
+    <h2 class="section-title">What Patients <em>Say</em></h2>
+    <p class="section-lead">Jill's approach has transformed the lives of patients across Edinburgh and beyond.</p>
+  </div>
+  <div class="reviews-track-wrap" style="margin-top:48px;">
+    <div class="reviews-track" id="reviewTrack">
+      <!-- Reviews duplicated for seamless loop -->
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Jill has been instrumental in my rehabilitation. Her deep understanding of chronic pain is exceptional — she treated the whole person, not just the symptom."</p>
+        <div class="review-author">Sarah M.</div>
+        <div class="review-loc">Edinburgh</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"I wouldn't hesitate to recommend Jill to anyone suffering from persistent pain. Her calm, methodical approach gave me back my quality of life."</p>
+        <div class="review-author">David T.</div>
+        <div class="review-loc">Glasgow</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"A holistic healer who truly understands the root cause of pain. After years of suffering, Jill helped me find relief in just a few sessions."</p>
+        <div class="review-author">Fiona R.</div>
+        <div class="review-loc">Online Consultation</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"The craniosacral therapy sessions were unlike anything I had experienced before. Incredibly gentle yet profoundly effective. Highly recommended."</p>
+        <div class="review-author">James K.</div>
+        <div class="review-loc">Edinburgh</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Jill's pain education completely changed my relationship with my body. I feel empowered rather than helpless for the first time in years."</p>
+        <div class="review-author">Claire B.</div>
+        <div class="review-loc">Aberdeen</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Professional, compassionate, and genuinely skilled. My back pain that had persisted for three years resolved within a few weeks of working with Jill."</p>
+        <div class="review-author">Michael W.</div>
+        <div class="review-loc">Edinburgh</div>
+      </div>
+      <!-- Duplicate for loop -->
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Jill has been instrumental in my rehabilitation. Her deep understanding of chronic pain is exceptional — she treated the whole person, not just the symptom."</p>
+        <div class="review-author">Sarah M.</div>
+        <div class="review-loc">Edinburgh</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"I wouldn't hesitate to recommend Jill to anyone suffering from persistent pain. Her calm, methodical approach gave me back my quality of life."</p>
+        <div class="review-author">David T.</div>
+        <div class="review-loc">Glasgow</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"A holistic healer who truly understands the root cause of pain. After years of suffering, Jill helped me find relief in just a few sessions."</p>
+        <div class="review-author">Fiona R.</div>
+        <div class="review-loc">Online Consultation</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"The craniosacral therapy sessions were unlike anything I had experienced before. Incredibly gentle yet profoundly effective. Highly recommended."</p>
+        <div class="review-author">James K.</div>
+        <div class="review-loc">Edinburgh</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Jill's pain education completely changed my relationship with my body. I feel empowered rather than helpless for the first time in years."</p>
+        <div class="review-author">Claire B.</div>
+        <div class="review-loc">Aberdeen</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Professional, compassionate, and genuinely skilled. My back pain that had persisted for three years resolved within a few weeks of working with Jill."</p>
+        <div class="review-author">Michael W.</div>
+        <div class="review-loc">Edinburgh</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ CTA ░░ -->
+<section id="cta">
+  <span class="section-label fade-in">Take the First Step</span>
+  <h2 class="section-title fade-in">Invest in Your <em>Health Today</em></h2>
+  <p class="section-lead fade-in">Chronic pain doesn't have to be your normal. Book your consultation with Jill and begin your journey back to a pain-free life.</p>
+  <a href="#contact" class="btn-white sound-click fade-in" style="margin-top:4px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Book Appointment
+  </a>
+</section>
+
+<!-- ░░ CONTACT ░░ -->
+<section id="contact">
+  <div class="container fade-in">
+    <span class="section-label">Get in Touch</span>
+    <h2 class="section-title">Contact <em>Jill</em></h2>
+    <p class="section-lead">Ready to begin? Reach out to book your appointment or ask any questions. Jill responds personally to all enquiries.</p>
+  </div>
+  <div class="contact-grid" style="margin-top:48px;">
+    <div class="contact-card fade-in">
+      <span class="section-label">Contact Details</span>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Clinic Address</div>
+            <div class="contact-val">17 Bristo Place<br>Edinburgh, Scotland</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val"><a href="mailto:jill@jillmclaggan.com" style="color:var(--blue);text-decoration:none;">jill@jillmclaggan.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Online Consultations</div>
+            <div class="contact-val">Available worldwide via video call</div>
+          </div>
+        </div>
+      </div>
+      <div class="social-row">
+        <a class="social-btn" href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a class="social-btn" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a class="social-btn" href="mailto:jill@jillmclaggan.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="book-card fade-in">
+      <div>
+        <span class="section-label">Ready to Begin?</span>
+        <h3>Book Your Appointment</h3>
+        <p>Take the first step toward lasting pain relief. Jill offers both in-clinic and online consultations to suit your needs and location.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="mailto:jill@jillmclaggan.com?subject=In-Clinic Appointment" class="btn-white sound-click">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+            In-Clinic Appointment
+          </a>
+          <a href="mailto:jill@jillmclaggan.com?subject=Online Consultation" class="btn-outline sound-click" style="color:white;border-color:rgba(255,255,255,0.35);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Online Consultation
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ FOOTER ░░ -->
+<footer>
+  <p>© 2025 Jill McLaggan – Chronic Pain Specialist &nbsp;·&nbsp; 17 Bristo Place, Edinburgh &nbsp;·&nbsp; <a href="mailto:jill@jillmclaggan.com">jill@jillmclaggan.com</a></p>
+</footer>
+
+<script>
+  // ── SOUNDS ──
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  let ctx;
+  function initAudio() {
+    if (!ctx) ctx = new AudioCtx();
+  }
+  function playClick() {
+    try {
+      initAudio();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine'; o.frequency.setValueAtTime(880, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.07);
+      g.gain.setValueAtTime(0.07, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      o.start(); o.stop(ctx.currentTime + 0.12);
+    } catch(e){}
+  }
+  function playWhoosh() {
+    try {
+      initAudio();
+      const bufLen = ctx.sampleRate * 0.35;
+      const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufLen);
+      const src = ctx.createBufferSource();
+      const filt = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+      filt.type = 'bandpass'; filt.frequency.value = 1200; filt.Q.value = 0.5;
+      src.buffer = buf;
+      src.connect(filt); filt.connect(gain); gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      src.start(); src.stop(ctx.currentTime + 0.35);
+    } catch(e){}
+  }
+
+  // ── HEADER SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('hdr').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── SIDEBAR ──
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    playWhoosh();
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    playClick();
+  }
+  menuBtn.addEventListener('click', openSidebar);
+  closeBtn.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { closeSidebar(); }));
+
+  // ── SOUND CLICKS ──
+  document.querySelectorAll('.sound-click').forEach(el => {
+    el.addEventListener('click', playClick);
+  });
+
+  // ── FADE IN ON SCROLL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── REVIEW TRACK SEAMLESS LOOP ──
+  // CSS handles it via animation
+
+  // ── ACTIVE NAV ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a:not(.book-btn)');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    navLinks.forEach(a => {
+      a.style.background = a.getAttribute('href') === '#' + cur ? 'rgba(90,111,175,0.10)' : '';
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--blue)' : '';
+    });
+  });
+</script>
+</body>
+</html>
